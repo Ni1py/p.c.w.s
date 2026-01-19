@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Каталог товаров",
-  description: "Каталог товаров с поиском",
+  title: "Product catalog",
+  description: "Product catalog with search",
 };
 
 export default function RootLayout({
