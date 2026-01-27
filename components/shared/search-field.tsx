@@ -62,7 +62,12 @@ export function SearchField({
         onChange={(e) => onChange(e)}
         onKeyDown={(e) => onKeyDown(e)}
       />
-      <Button onClick={() => updateSearchURL(searchString)}>Search</Button>
+      <Button
+        onClick={() => updateSearchURL(searchString)}
+        className="cursor-pointer"
+      >
+        Search
+      </Button>
     </Field>
   );
 }
