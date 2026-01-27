@@ -2,7 +2,15 @@ import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { ProductList } from "@/components/shared/product-list";
 import { SearchField } from "@/components/shared/search-field";
 
-export default function Home() {
+interface IHomeProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function Home({ searchParams }: IHomeProps) {
+  const _searchParams = await searchParams;
+  const search = _searchParams.search;
+  const searchString = typeof search === "string" ? search : "";
+
   return (
     <main className="container mx-auto px-4 py-10">
       <div className="mb-8 flex items-center justify-between">
@@ -12,7 +20,7 @@ export default function Home() {
       <div className="mb-8 flex items-center justify-between">
         <SearchField />
       </div>
-      <ProductList />
+      <ProductList searchString={searchString} />
     </main>
   );
 }
