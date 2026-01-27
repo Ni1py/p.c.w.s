@@ -1,6 +1,8 @@
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { ProductList } from "@/components/shared/product-list";
 import { SearchField } from "@/components/shared/search-field";
+import { Suspense } from "react";
+import { ProductListSkeleton } from "@/components/shared/product-list-skeleton";
 
 interface IHomeProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -20,7 +22,9 @@ export default async function Home({ searchParams }: IHomeProps) {
       <div className="mb-8 flex items-center justify-between">
         <SearchField />
       </div>
-      <ProductList searchString={searchString} />
+      <Suspense key={searchString} fallback={<ProductListSkeleton />}>
+        <ProductList searchString={searchString} />
+      </Suspense>
     </main>
   );
 }
