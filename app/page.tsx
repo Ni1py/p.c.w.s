@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: IHomeProps) {
         <h1 className="text-3xl font-extrabold">PRODUCT CATALOG</h1>
         <ThemeToggle />
       </div>
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex items-center justify-between gap-4">
         <SearchField />
         <CategoryFilter />
       </div>

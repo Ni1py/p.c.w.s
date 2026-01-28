@@ -7,6 +7,7 @@ import * as React from "react";
 import { clearUrlParam, cn, updateURL } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SEARCH_PARAMS } from "@/lib/constants";
+import { Search } from "lucide-react";
 
 export function SearchField({
   className,
@@ -64,10 +65,13 @@ export function SearchField({
         onKeyDown={(e) => onKeyDown(e)}
       />
       <Button
+        variant="outline"
         onClick={() => updateSearchParams(searchString)}
         className="cursor-pointer"
+        size="icon"
+        disabled={!searchString}
       >
-        Search
+        <Search />
       </Button>
     </Field>
   );
