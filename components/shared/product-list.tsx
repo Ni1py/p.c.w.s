@@ -4,23 +4,32 @@ import { SearchX } from "lucide-react";
 
 interface IProductListProps {
   searchString: string;
+  categoryString: string;
 }
 
-export async function ProductList({ searchString }: IProductListProps) {
+export async function ProductList({
+  searchString,
+  categoryString,
+}: IProductListProps) {
   try {
-    const response = await fetch(
-      searchString
-        ? `https://dummyjson.com/products/search?q=${searchString}`
-        : "https://dummyjson.com/products?limit=10"
-    );
+    const url = searchString
+      ? `https://dummyjson.com/products/search?q=${searchString}`
+      : categoryString
+        ? `https://dummyjson.com/products/category/${categoryString}`
+        : "https://dummyjson.com/products?limit=10";
+
+    const response = await fetch(url);
     if (!response.ok) {
       return <ErrorState message="Server error. Try again later." />;
     }
 
     const data = await response.json();
     const productList = data.products as IProduct[];
+    const productListFiltered = searchString
+      ? productList.filter((product) => product.category === categoryString)
+      : productList;
 
-    if (productList.length === 0) {
+    if (productListFiltered.length === 0) {
       return (
         <div className="flex flex-col items-center gap-2 py-10">
           <p className="text-muted-foreground text-2xl font-bold">
@@ -33,7 +42,7 @@ export async function ProductList({ searchString }: IProductListProps) {
 
     return (
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {productList.map((product) => (
+        {productListFiltered.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

@@ -4,8 +4,9 @@ import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { clearUrlParam, cn, updateURL } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { SEARCH_PARAMS } from "@/lib/constants";
 
 export function SearchField({
   className,
@@ -14,7 +15,7 @@ export function SearchField({
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const search = searchParams.get("search") || "";
+  const search = searchParams.get(SEARCH_PARAMS.SEARCH) || "";
 
   const [searchString, setSearchString] = React.useState("");
 
@@ -22,29 +23,29 @@ export function SearchField({
     setSearchString(search);
   }, [search]);
 
-  const updateSearchURL = (newValue: string) => {
+  const updateSearchParams = (newValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("search", newValue.toString());
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    router.push(updateURL(SEARCH_PARAMS.SEARCH, newValue, params, pathname), {
+      scroll: false,
+    });
   };
 
-  const clearSearch = () => {
+  const clearSearchParams = () => {
     const params = new URLSearchParams(searchParams.toString());
-    params.delete("search");
-    const queryParams = params.toString();
-    const query = queryParams ? `${pathname}?${queryParams}` : pathname;
-    router.push(query, { scroll: false });
+    router.push(clearUrlParam(SEARCH_PARAMS.SEARCH, params, pathname), {
+      scroll: false,
+    });
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setSearchString(newValue);
-    if (newValue === "") clearSearch();
+    if (newValue === "") clearSearchParams();
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      updateSearchURL(searchString);
+      updateSearchParams(searchString);
       e.currentTarget.blur();
     }
   };
@@ -63,7 +64,7 @@ export function SearchField({
         onKeyDown={(e) => onKeyDown(e)}
       />
       <Button
-        onClick={() => updateSearchURL(searchString)}
+        onClick={() => updateSearchParams(searchString)}
         className="cursor-pointer"
       >
         Search
