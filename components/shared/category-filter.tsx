@@ -1,7 +1,11 @@
 import { Filter } from "@/components/shared/filter";
 import { SEARCH_PARAMS } from "@/lib/constants";
+import * as React from "react";
 
-export async function CategoryFilter() {
+export async function CategoryFilter({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   try {
     const response = await fetch(
       "https://dummyjson.com/products/category-list"
@@ -22,6 +26,8 @@ export async function CategoryFilter() {
       <Filter
         urlParam={SEARCH_PARAMS.CATEGORY}
         filterValueList={categoryList}
+        className={className}
+        {...props}
       />
     );
   } catch (e) {
