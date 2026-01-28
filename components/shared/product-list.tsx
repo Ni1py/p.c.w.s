@@ -1,6 +1,7 @@
 import { ProductCard } from "@/components/shared/product-card";
 import { IProduct } from "@/types/product";
 import { SearchX } from "lucide-react";
+import { PaginationComponent } from "@/components/shared/pagination-component";
 
 interface IProductListProps {
   searchString: string;
@@ -41,10 +42,13 @@ export async function ProductList({
     }
 
     return (
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {productListFiltered.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+      <div>
+        <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {productListFiltered.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+        <PaginationComponent />
       </div>
     );
   } catch (error) {
