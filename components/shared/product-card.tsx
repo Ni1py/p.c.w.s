@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { CircleStar } from "lucide-react";
+import { Star } from "lucide-react";
 import { IProduct } from "@/types/product";
 
 interface IProductCardProps {
@@ -15,7 +15,7 @@ interface IProductCardProps {
 
 export function ProductCard({ product }: IProductCardProps) {
   return (
-    <Card className="bg-background overflow-hidden transition-all hover:scale-105 hover:shadow-lg">
+    <Card className="overflow-hidden transition-all hover:scale-105 hover:shadow-lg">
       <div className="relative aspect-square">
         <Image src={product.thumbnail} alt={product.title} fill />
       </div>
@@ -25,9 +25,9 @@ export function ProductCard({ product }: IProductCardProps) {
       <CardContent>
         <p className="text-xl font-bold">{product.price} $</p>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between gap-4">
         <div className="flex items-center gap-2">
-          <CircleStar className="text-muted-foreground" />
+          <Star className="text-muted-foreground" />
           <span className="text-muted-foreground font-bold">
             {product.rating}
           </span>
