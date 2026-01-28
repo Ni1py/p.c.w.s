@@ -9,10 +9,7 @@ export function ProductListSkeleton() {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
       {Array.from({ length: 10 }, (_, i) => (
-        <Card
-          key={i}
-          className="bg-background h-full animate-pulse overflow-hidden"
-        >
+        <Card key={i} className="h-full animate-pulse overflow-hidden">
           <div className="bg-muted aspect-square" />
           <CardHeader className="w-full">
             <div className="bg-muted h-7 w-full rounded" />

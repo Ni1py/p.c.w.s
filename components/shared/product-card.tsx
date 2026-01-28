@@ -15,7 +15,7 @@ interface IProductCardProps {
 
 export function ProductCard({ product }: IProductCardProps) {
   return (
-    <Card className="bg-background overflow-hidden transition-all hover:scale-105 hover:shadow-lg">
+    <Card className="overflow-hidden transition-all hover:scale-105 hover:shadow-lg">
       <div className="relative aspect-square">
         <Image src={product.thumbnail} alt={product.title} fill />
       </div>
