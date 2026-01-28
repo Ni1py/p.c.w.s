@@ -1,4 +1,5 @@
 import { Filter } from "@/components/shared/filter";
+import { SEARCH_PARAMS } from "@/lib/constants";
 
 export async function CategoryFilter() {
   try {
@@ -8,7 +9,7 @@ export async function CategoryFilter() {
     if (!response.ok) {
       return (
         <Filter
-          urlParam="category"
+          urlParam={SEARCH_PARAMS.CATEGORY}
           filterValueList={[]}
           disabled
           placeholder="Categories unavailable"
@@ -17,11 +18,16 @@ export async function CategoryFilter() {
     }
     const categoryList = (await response.json()) as string[];
 
-    return <Filter urlParam={"category"} filterValueList={categoryList} />;
+    return (
+      <Filter
+        urlParam={SEARCH_PARAMS.CATEGORY}
+        filterValueList={categoryList}
+      />
+    );
   } catch (e) {
     return (
       <Filter
-        urlParam="category"
+        urlParam={SEARCH_PARAMS.CATEGORY}
         filterValueList={[]}
         disabled
         placeholder="Failed to load"
