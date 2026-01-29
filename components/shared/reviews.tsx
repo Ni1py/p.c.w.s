@@ -13,13 +13,13 @@ export function Reviews({ reviews, rating, className }: IReviewsProps) {
     <div className={className}>
       <div className="flex items-center gap-4">
         <h2 className="font-mono text-3xl">Reviews -</h2>
-        <div className="flex gap-2">
+        <div className="flex gap-2 text-lg">
           <Star className="text-muted-foreground" />
           <span className="font-mono">{rating}</span>
         </div>
         <span className="font-mono text-3xl"> -</span>
         {reviews.length && (
-          <span className="font-mono">{reviews.length} reviews</span>
+          <span className="font-mono text-lg">{reviews.length} reviews</span>
         )}
       </div>
       {reviews.map((review, index) => (
