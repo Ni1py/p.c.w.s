@@ -37,14 +37,16 @@ export function Filter({
 
   const onValueChange = (newValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    router.push(updateURL(urlParam, newValue, params, pathname), {
+    router.push(updateURL(urlParam, newValue, params, pathname, true), {
       scroll: false,
     });
   };
 
   const onClick = () => {
     const params = new URLSearchParams(searchParams.toString());
-    router.push(clearUrlParam(urlParam, params, pathname), { scroll: false });
+    router.push(clearUrlParam(urlParam, params, pathname, true), {
+      scroll: false,
+    });
   };
 
   return (

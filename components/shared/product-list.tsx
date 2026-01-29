@@ -18,20 +18,23 @@ export async function ProductList({
 }: IProductListProps) {
   try {
     const offset = (currentPage - 1) * LIMIT;
+    const paginationParams = `limit=${LIMIT}&skip=${offset}`;
     const url = searchString
-      ? `https://dummyjson.com/products/search?q=${searchString}`
+      ? `https://dummyjson.com/products/search?q=${searchString}&${paginationParams}`
       : categoryString
-        ? `https://dummyjson.com/products/category/${categoryString}`
-        : `https://dummyjson.com/products?limit=${LIMIT}&skip=${offset}`;
+        ? `https://dummyjson.com/products/category/${categoryString}/?${paginationParams}`
+        : `https://dummyjson.com/products?${paginationParams}`;
 
     const response = await fetch(url);
     if (!response.ok) {
       return <ErrorState message="Server error. Try again later." />;
     }
-
     const data = await response.json();
     const productList = data.products as IProduct[];
-    const totalPages = Math.ceil(data.total / LIMIT);
+    console.log(`Getting products: ${productList.length}`);
+    const totalPages = Math.ceil(
+      (searchString && categoryString ? data.length : data.total) / LIMIT
+    );
     const productListFiltered =
       searchString && categoryString
         ? productList.filter((product) => product.category === categoryString)
@@ -55,13 +58,11 @@ export async function ProductList({
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-        {!searchString && !categoryString && (
-          <PaginationComponent totalPages={totalPages} />
-        )}
+        {totalPages > 1 && <PaginationComponent totalPages={totalPages} />}
       </div>
     );
   } catch (error) {
-    return <ErrorState message="Connection error. Try again later." />;
+    return <ErrorState message={error.message} />;
   }
 }
 

@@ -27,7 +27,7 @@ export function SearchField({
   const updateSearchParams = (newValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
     router.push(
-      updateURL(NAVIGATION_PARAMS.SEARCH, newValue, params, pathname),
+      updateURL(NAVIGATION_PARAMS.SEARCH, newValue, params, pathname, true),
       {
         scroll: false,
       }
@@ -36,9 +36,12 @@ export function SearchField({
 
   const clearSearchParams = () => {
     const params = new URLSearchParams(searchParams.toString());
-    router.push(clearUrlParam(NAVIGATION_PARAMS.SEARCH, params, pathname), {
-      scroll: false,
-    });
+    router.push(
+      clearUrlParam(NAVIGATION_PARAMS.SEARCH, params, pathname, true),
+      {
+        scroll: false,
+      }
+    );
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
