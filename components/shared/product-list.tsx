@@ -6,18 +6,23 @@ import { PaginationComponent } from "@/components/shared/pagination-component";
 interface IProductListProps {
   searchString: string;
   categoryString: string;
+  currentPage: number;
 }
+
+const LIMIT = 10;
 
 export async function ProductList({
   searchString,
   categoryString,
+  currentPage,
 }: IProductListProps) {
   try {
+    const offset = (currentPage - 1) * LIMIT;
     const url = searchString
       ? `https://dummyjson.com/products/search?q=${searchString}`
       : categoryString
         ? `https://dummyjson.com/products/category/${categoryString}`
-        : "https://dummyjson.com/products?limit=10";
+        : `https://dummyjson.com/products?limit=${LIMIT}&skip=${offset}`;
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -26,9 +31,11 @@ export async function ProductList({
 
     const data = await response.json();
     const productList = data.products as IProduct[];
-    const productListFiltered = searchString
-      ? productList.filter((product) => product.category === categoryString)
-      : productList;
+    const totalPages = Math.ceil(data.total / LIMIT);
+    const productListFiltered =
+      searchString && categoryString
+        ? productList.filter((product) => product.category === categoryString)
+        : productList;
 
     if (productListFiltered.length === 0) {
       return (
@@ -48,7 +55,9 @@ export async function ProductList({
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-        <PaginationComponent />
+        {!searchString && !categoryString && (
+          <PaginationComponent totalPages={totalPages} />
+        )}
       </div>
     );
   } catch (error) {

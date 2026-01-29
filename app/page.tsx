@@ -13,8 +13,10 @@ export default async function Home({ searchParams }: IHomeProps) {
   const _searchParams = await searchParams;
   const search = _searchParams.search;
   const category = _searchParams.category;
+  const page = _searchParams.page;
   const searchString = typeof search === "string" ? search : "";
   const categoryString = typeof category === "string" ? category : "";
+  const pageNumber = typeof page === "string" ? Number(page) : 1;
 
   return (
     <main className="container mx-auto px-4 py-10">
@@ -33,6 +35,7 @@ export default async function Home({ searchParams }: IHomeProps) {
         <ProductList
           searchString={searchString}
           categoryString={categoryString}
+          currentPage={pageNumber}
         />
       </Suspense>
     </main>

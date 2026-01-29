@@ -1,4 +1,5 @@
-export const SEARCH_PARAMS = {
+export const NAVIGATION_PARAMS = {
   SEARCH: "search",
   CATEGORY: "category",
+  PAGE: "page",
 };
