@@ -4,7 +4,7 @@ export default function Loading() {
       <div className="bg-muted mb-6 h-6 w-20 rounded" />
 
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-        <div className="bg-muted aspect-square rounded-xl" />
+        <div className="bg-muted aspect-square max-w-[500px] rounded-xl" />
 
         <div className="space-y-4">
           <div className="bg-muted h-10 w-3/4 rounded" />
