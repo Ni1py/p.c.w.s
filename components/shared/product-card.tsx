@@ -27,7 +27,9 @@ export function ProductCard({ product }: IProductCardProps) {
           />
         </div>
         <CardHeader className="flex-1">
-          <CardTitle className="font-mono text-lg">{product.title}</CardTitle>
+          <CardTitle className="line-clamp-2 min-h-[55px] font-mono text-lg">
+            {product.title}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="font-mono text-xl">{product.price}$</p>
