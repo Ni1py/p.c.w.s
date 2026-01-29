@@ -1,6 +1,7 @@
 import { IProduct } from "@/types/product";
 import Image from "next/image";
 import { BackButton } from "@/components/shared/back-button";
+import { Star } from "lucide-react";
 
 export default async function ProductPage({
   params,
@@ -15,7 +16,6 @@ export default async function ProductPage({
   return (
     <div>
       <BackButton />
-
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
         <div className="relative aspect-square w-full max-w-[500px] overflow-hidden">
           <Image
@@ -28,11 +28,11 @@ export default async function ProductPage({
           />
         </div>
         <div>
-          <h1 className="mb-4 text-4xl font-bold">{product.title}</h1>
-          <p className="text-primary mb-6 text-2xl font-semibold">
-            ${product.price}
+          <h1 className="mb-4 font-mono text-4xl font-bold">{product.title}</h1>
+          <p className="text-primary mb-6 font-mono text-2xl font-semibold">
+            {product.price}$
           </p>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-muted-foreground font-mono leading-relaxed">
             {product.description}
           </p>
         </div>

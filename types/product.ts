@@ -1,3 +1,5 @@
+import { IReview } from "@/types/review";
+
 export interface IProduct {
   id: number;
   title: string;
@@ -5,6 +7,6 @@ export interface IProduct {
   price: number;
   category: string;
   rating: number;
-  reviews: [];
+  reviews: IReview[];
   thumbnail: string;
 }

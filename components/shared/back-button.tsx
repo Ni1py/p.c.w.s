@@ -15,7 +15,7 @@ export function BackButton() {
       onClick={() => router.back()}
     >
       <ChevronLeft size={20} />
-      <span className="text-lg">Back</span>
+      <span className="font-mono text-lg">Back</span>
     </Button>
   );
 }
