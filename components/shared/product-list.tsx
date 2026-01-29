@@ -42,11 +42,11 @@ export async function ProductList({
 
     if (productListFiltered.length === 0) {
       return (
-        <div className="flex flex-col items-center gap-2 py-10">
+        <div className="flex flex-col items-center gap-2 py-10 font-mono">
           <p className="text-muted-foreground text-2xl font-bold">
             Products not found for "{searchString}"
           </p>
-          <SearchX className="text-muted-foreground h-9 w-9" />
+          <SearchX className="text-muted-foreground" size={50} />
         </div>
       );
     }
@@ -68,7 +68,7 @@ export async function ProductList({
 
 function ErrorState({ message }: { message: string }) {
   return (
-    <div className="border-destructive/50 bg-destructive/10 rounded-lg border-2 p-10 text-center">
+    <div className="border-destructive/50 bg-destructive/10 rounded-lg border-2 p-10 text-center font-mono">
       <p className="text-destructive font-bold">Oops! {message}</p>
     </div>
   );

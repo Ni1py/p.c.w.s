@@ -13,7 +13,7 @@ export function Review({ review }: IReviewProps) {
   }).format(date);
 
   return (
-    <div className="bg-card mt-4 flex items-center justify-between gap-4 rounded-xl p-6 font-mono">
+    <div className="bg-muted mt-4 flex items-center justify-between gap-4 rounded-xl p-6 font-mono">
       <div className="flex items-center gap-4">
         <CircleUserRound size={30} />
         <div className="flex flex-col gap-2">

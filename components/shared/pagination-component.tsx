@@ -49,7 +49,7 @@ export function PaginationComponent({ totalPages }: IPaginationComponentProps) {
 
   return (
     <Pagination>
-      <PaginationContent>
+      <PaginationContent className="font-mono">
         {currentPage > 1 && (
           <PaginationItem>
             <PaginationPrevious href={getPageHref(currentPage - 1)} />
