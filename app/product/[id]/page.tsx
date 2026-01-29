@@ -2,6 +2,7 @@ import { IProduct } from "@/types/product";
 import Image from "next/image";
 import { BackButton } from "@/components/shared/back-button";
 import { Star } from "lucide-react";
+import { Reviews } from "@/components/shared/reviews";
 
 export default async function ProductPage({
   params,
@@ -37,6 +38,11 @@ export default async function ProductPage({
           </p>
         </div>
       </div>
+      <Reviews
+        reviews={product.reviews}
+        rating={product.rating}
+        className="mt-6"
+      />
     </div>
   );
 }
