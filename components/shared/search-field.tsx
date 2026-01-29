@@ -69,6 +69,7 @@ export function SearchField({
         placeholder="Search..."
         onChange={(e) => onChange(e)}
         onKeyDown={(e) => onKeyDown(e)}
+        className="font-mono"
       />
       <Button
         variant="outline"

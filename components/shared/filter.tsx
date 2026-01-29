@@ -58,16 +58,16 @@ export function Filter({
         value={currentFilter}
         disabled={disabled}
       >
-        <SelectTrigger className="w-full max-w-48">
+        <SelectTrigger className="w-full max-w-48 cursor-pointer font-mono">
           <SelectValue
             placeholder={placeholder ? placeholder : "Select a category"}
           />
         </SelectTrigger>
         <SelectContent>
-          <SelectGroup>
+          <SelectGroup className="font-mono">
             <SelectLabel>Categories</SelectLabel>
             {filterValueList.map((name, key) => (
-              <SelectItem key={key} value={name}>
+              <SelectItem key={key} value={name} className="cursor-pointer">
                 {name}
               </SelectItem>
             ))}
