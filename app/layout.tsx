@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +36,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="container mx-auto px-10 py-10">
+            <div className="mb-8 flex items-center justify-between">
+              <Link href="/">
+                <h1 className="text-3xl font-extrabold">PRODUCT CATALOG</h1>
+              </Link>
+              <ThemeToggle />
+            </div>
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
