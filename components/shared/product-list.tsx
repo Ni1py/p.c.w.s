@@ -31,7 +31,6 @@ export async function ProductList({
     }
     const data = await response.json();
     const productList = data.products as IProduct[];
-    console.log(`Getting products: ${productList.length}`);
     const totalPages = Math.ceil(
       (searchString && categoryString ? data.length : data.total) / LIMIT
     );

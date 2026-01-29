@@ -18,7 +18,9 @@ export function Reviews({ reviews, rating, className }: IReviewsProps) {
           <span className="font-mono">{rating}</span>
         </div>
         <span className="font-mono text-3xl"> -</span>
-        <span className="font-mono">{reviews.length} reviews</span>
+        {reviews.length && (
+          <span className="font-mono">{reviews.length} reviews</span>
+        )}
       </div>
       {reviews.map((review, index) => (
         <Review review={review} key={index} />

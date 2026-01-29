@@ -41,9 +41,11 @@ export function ProductCard({ product }: IProductCardProps) {
               {product.rating}
             </span>
           </div>
-          <span className="text-muted-foreground overflow-hidden font-mono">
-            {product.reviews.length} reviews
-          </span>
+          {product.reviews.length && (
+            <span className="text-muted-foreground overflow-hidden font-mono">
+              {product.reviews.length} reviews
+            </span>
+          )}
         </CardFooter>
       </Card>
     </Link>
