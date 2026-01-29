@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import * as React from "react";
 import { clearUrlParam, cn, updateURL } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { SEARCH_PARAMS } from "@/lib/constants";
+import { NAVIGATION_PARAMS } from "@/lib/constants";
 import { Search } from "lucide-react";
 
 export function SearchField({
@@ -16,7 +16,7 @@ export function SearchField({
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const search = searchParams.get(SEARCH_PARAMS.SEARCH) || "";
+  const search = searchParams.get(NAVIGATION_PARAMS.SEARCH) || "";
 
   const [searchString, setSearchString] = React.useState("");
 
@@ -26,16 +26,22 @@ export function SearchField({
 
   const updateSearchParams = (newValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    router.push(updateURL(SEARCH_PARAMS.SEARCH, newValue, params, pathname), {
-      scroll: false,
-    });
+    router.push(
+      updateURL(NAVIGATION_PARAMS.SEARCH, newValue, params, pathname, true),
+      {
+        scroll: false,
+      }
+    );
   };
 
   const clearSearchParams = () => {
     const params = new URLSearchParams(searchParams.toString());
-    router.push(clearUrlParam(SEARCH_PARAMS.SEARCH, params, pathname), {
-      scroll: false,
-    });
+    router.push(
+      clearUrlParam(NAVIGATION_PARAMS.SEARCH, params, pathname, true),
+      {
+        scroll: false,
+      }
+    );
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

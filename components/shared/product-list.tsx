@@ -1,33 +1,44 @@
 import { ProductCard } from "@/components/shared/product-card";
 import { IProduct } from "@/types/product";
 import { SearchX } from "lucide-react";
+import { PaginationComponent } from "@/components/shared/pagination-component";
 
 interface IProductListProps {
   searchString: string;
   categoryString: string;
+  currentPage: number;
 }
+
+const LIMIT = 10;
 
 export async function ProductList({
   searchString,
   categoryString,
+  currentPage,
 }: IProductListProps) {
   try {
+    const offset = (currentPage - 1) * LIMIT;
+    const paginationParams = `limit=${LIMIT}&skip=${offset}`;
     const url = searchString
-      ? `https://dummyjson.com/products/search?q=${searchString}`
+      ? `https://dummyjson.com/products/search?q=${searchString}&${paginationParams}`
       : categoryString
-        ? `https://dummyjson.com/products/category/${categoryString}`
-        : "https://dummyjson.com/products?limit=10";
+        ? `https://dummyjson.com/products/category/${categoryString}/?${paginationParams}`
+        : `https://dummyjson.com/products?${paginationParams}`;
 
     const response = await fetch(url);
     if (!response.ok) {
       return <ErrorState message="Server error. Try again later." />;
     }
-
     const data = await response.json();
     const productList = data.products as IProduct[];
-    const productListFiltered = searchString
-      ? productList.filter((product) => product.category === categoryString)
-      : productList;
+    console.log(`Getting products: ${productList.length}`);
+    const totalPages = Math.ceil(
+      (searchString && categoryString ? data.length : data.total) / LIMIT
+    );
+    const productListFiltered =
+      searchString && categoryString
+        ? productList.filter((product) => product.category === categoryString)
+        : productList;
 
     if (productListFiltered.length === 0) {
       return (
@@ -41,14 +52,17 @@ export async function ProductList({
     }
 
     return (
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {productListFiltered.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+      <div>
+        <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {productListFiltered.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+        {totalPages > 1 && <PaginationComponent totalPages={totalPages} />}
       </div>
     );
   } catch (error) {
-    return <ErrorState message="Connection error. Try again later." />;
+    return <ErrorState message={error.message} />;
   }
 }
 

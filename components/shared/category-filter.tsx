@@ -1,5 +1,5 @@
 import { Filter } from "@/components/shared/filter";
-import { SEARCH_PARAMS } from "@/lib/constants";
+import { NAVIGATION_PARAMS } from "@/lib/constants";
 import * as React from "react";
 
 export async function CategoryFilter({
@@ -13,7 +13,7 @@ export async function CategoryFilter({
     if (!response.ok) {
       return (
         <Filter
-          urlParam={SEARCH_PARAMS.CATEGORY}
+          urlParam={NAVIGATION_PARAMS.CATEGORY}
           filterValueList={[]}
           disabled
           placeholder="Categories unavailable"
@@ -24,7 +24,7 @@ export async function CategoryFilter({
 
     return (
       <Filter
-        urlParam={SEARCH_PARAMS.CATEGORY}
+        urlParam={NAVIGATION_PARAMS.CATEGORY}
         filterValueList={categoryList}
         className={className}
         {...props}
@@ -33,7 +33,7 @@ export async function CategoryFilter({
   } catch (e) {
     return (
       <Filter
-        urlParam={SEARCH_PARAMS.CATEGORY}
+        urlParam={NAVIGATION_PARAMS.CATEGORY}
         filterValueList={[]}
         disabled
         placeholder="Failed to load"
