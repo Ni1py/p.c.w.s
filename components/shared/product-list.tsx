@@ -1,7 +1,11 @@
 import { ProductCard } from "@/components/shared/product-card";
-import { IProduct } from "@/types/product";
 import { SearchX } from "lucide-react";
 import { PaginationComponent } from "@/components/shared/pagination-component";
+import {
+  getProducts,
+  getProductsByCategory,
+  getProductsBySearch,
+} from "@/lib/api";
 
 interface IProductListProps {
   searchString: string;
@@ -18,22 +22,14 @@ export async function ProductList({
 }: IProductListProps) {
   const offset = (currentPage - 1) * LIMIT;
   const paginationParams = `limit=${LIMIT}&skip=${offset}`;
-  const url = searchString
-    ? `https://dummyjson.com/products/search?q=${searchString}&${paginationParams}`
+  const data = searchString
+    ? await getProductsBySearch(searchString, paginationParams)
     : categoryString
-      ? `https://dummyjson.com/products/category/${categoryString}/?${paginationParams}`
-      : `https://dummyjson.com/products?${paginationParams}`;
+      ? await getProductsByCategory(categoryString, paginationParams)
+      : await getProducts(paginationParams);
 
-  const response = await fetch(url, {
-    signal: AbortSignal.timeout(1500),
-    next: { revalidate: 3600 },
-  });
+  const productList = data.products;
 
-  const data = await response.json();
-  const productList = data.products as IProduct[];
-  const totalPages = Math.ceil(
-    (searchString && categoryString ? data.length : data.total) / LIMIT
-  );
   const productListFiltered =
     searchString && categoryString
       ? productList.filter((product) => product.category === categoryString)
@@ -52,6 +48,11 @@ export async function ProductList({
   } else {
     return <></>;
   }
+
+  const totalPages = Math.ceil(
+    (searchString && categoryString ? productListFiltered.length : data.total) /
+      LIMIT
+  );
 
   return (
     <div>
