@@ -19,7 +19,7 @@ export default async function Home({ searchParams }: IHomeProps) {
 
   return (
     <main>
-      <div className="mb-8 flex items-center justify-between gap-4">
+      <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
         <SearchField />
         <CategoryFilter />
       </div>
