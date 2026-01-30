@@ -9,9 +9,7 @@ export default function Error({ reset }: { reset: () => void }) {
       <h2 className="text-destructive text-2xl font-bold">
         Something went wrong!
       </h2>
-      <p className="text-muted-foreground">
-        Could not load the product details.
-      </p>
+      <p className="text-muted-foreground">Could not load the products.</p>
 
       <div className="flex gap-4">
         <Button
