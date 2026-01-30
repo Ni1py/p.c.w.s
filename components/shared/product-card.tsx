@@ -1,0 +1,59 @@
+"use client";
+
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Image from "next/image";
+import { Star } from "lucide-react";
+import { IProduct } from "@/types/product";
+import Link from "next/link";
+import { useState } from "react";
+
+interface IProductCardProps {
+  product: IProduct;
+}
+
+export function ProductCard({ product }: IProductCardProps) {
+  const [imgSrc, setImgSrc] = useState(product.thumbnail);
+
+  return (
+    <Link href={`product/${product.id}`}>
+      <Card className="cursor-pointer overflow-hidden transition-all hover:scale-105 hover:shadow-lg">
+        <div className="relative aspect-square">
+          <Image
+            src={imgSrc}
+            alt={product.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+            onError={() => setImgSrc(`/no-image.png`)}
+          />
+        </div>
+        <CardHeader className="flex-1">
+          <CardTitle className="line-clamp-2 min-h-[55px] font-mono text-lg">
+            {product.title}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="font-mono text-xl">{product.price}$</p>
+        </CardContent>
+        <CardFooter className="flex justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <Star className="text-muted-foreground" />
+            <span className="text-muted-foreground font-mono">
+              {product.rating}
+            </span>
+          </div>
+          {product.reviews.length && (
+            <span className="text-muted-foreground overflow-hidden font-mono">
+              {product.reviews.length} reviews
+            </span>
+          )}
+        </CardFooter>
+      </Card>
+    </Link>
+  );
+}
