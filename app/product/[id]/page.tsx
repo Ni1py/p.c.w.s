@@ -1,8 +1,7 @@
-import { IProduct } from "@/types/product";
 import Image from "next/image";
 import { BackButton } from "@/components/shared/back-button";
-import { Star } from "lucide-react";
 import { Reviews } from "@/components/shared/reviews";
+import { getProductById } from "@/lib/api";
 
 export default async function ProductPage({
   params,
@@ -10,9 +9,7 @@ export default async function ProductPage({
   params: { id: string };
 }) {
   const { id } = await params;
-
-  const response = await fetch(`https://dummyjson.com/products/${id}`);
-  const product = (await response.json()) as IProduct;
+  const product = await getProductById(id);
 
   return (
     <div>
